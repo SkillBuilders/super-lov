@@ -1,0 +1,30 @@
+{
+  "name": "sb-super-lov",
+  "version": "3.0.1",
+  "description": "Popup LOV's with a web 2.0 twist",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016https://github.com/SkillBuilders/super-lov"
+  },
+  "keywords": [
+    "APEX",
+    "LOV",
+    "PLUGIN",
+    "ORACLE",
+    "PL/SQL"
+  ],
+  "author": "SkillBuilders",
+  "license": "MIT",
+  "dependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-imagemin": "^3.0.3",
+    "gulp-uglify": "^2.0.0",
+    "gulp-zip": "^3.2.0"
+  }
+}

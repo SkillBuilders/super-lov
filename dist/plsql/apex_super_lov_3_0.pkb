@@ -1,13 +1,31 @@
-PROCEDURE apex_super_lov_render (
+CREATE OR REPLACE PACKAGE BODY apex_super_lov_2_0
+IS
+/*****************************************************************************/  
+--<GLOBAL_PRIVATE_DATA_STRUCTURES>  
+--</GLOBAL_PRIVATE_DATA_STRUCTURES>  
+  
+--<GLOBAL_PRIVATE_CONSTANTS>  
+--</GLOBAL_PRIVATE_CONSTANTS>  
 
-   p_item   in            apex_plugin.t_item,
-   p_plugin in            apex_plugin.t_plugin,
-   p_param  in            apex_plugin.t_item_render_param,
-   p_result in out nocopy apex_plugin.t_item_render_result   
+--<GLOBAL_PRIVATE_VARIABLES>  
+--</GLOBAL_PRIVATE_VARIABLES>  
+  
+--<GLOBAL_PRIVATE_EXCEPTIONS>  
+--</GLOBAL_PRIVATE_EXCEPTIONS>  
+/*****************************************************************************/ 
+FUNCTION apex_super_lov_render (
+   p_item                IN APEX_PLUGIN.T_PAGE_ITEM,
+   p_plugin              IN APEX_PLUGIN.T_PLUGIN,
+   p_value               IN VARCHAR2,
+   p_is_readonly         IN BOOLEAN,
+   p_is_printer_friendly IN BOOLEAN 
 )
+
+   RETURN APEX_PLUGIN.T_PAGE_ITEM_RENDER_RESULT
    
 IS
 
+   l_retval                  APEX_PLUGIN.T_PAGE_ITEM_RENDER_RESULT;
    lc_not_enterable          CONSTANT VARCHAR2(30) := 'NOT_ENTERABLE';
    lc_enterable_unrestricted CONSTANT VARCHAR2(30) := 'ENTERABLE_UNRESTRICTED';
    lc_enterable_restricted   CONSTANT VARCHAR2(30) := 'ENTERABLE_RESTRICTED';
@@ -23,7 +41,7 @@ IS
    l_search_type             VARCHAR2(32767) := NVL(p_plugin.attribute_01, apex_plugin_util.c_search_contains_ignore);
    l_loading_image_type      VARCHAR2(30) := NVL(p_plugin.attribute_03, 'DEFAULT');
    l_loading_image_def       VARCHAR2(30) := NVL(p_plugin.attribute_04, 'bar');
-   l_loading_image_cust      VARCHAR2(32767) := NVL(p_plugin.attribute_05, apex_application.g_image_prefix || 'img/processing3.gif');
+   l_loading_image_cust      VARCHAR2(32767) := NVL(p_plugin.attribute_05, apex_application.g_image_prefix || 'processing3.gif');
    l_effects_speed           NUMBER := NVL(p_plugin.attribute_06, 400);
    l_clear_protection        VARCHAR2(1) := NVL(p_plugin.attribute_07, 'Y');
    l_no_data_found_msg       VARCHAR2(32767) := NVL(p_plugin.attribute_08, 'Your search returned no results.');
@@ -45,15 +63,15 @@ BEGIN
       apex_plugin_util.debug_page_item (
          p_plugin              => p_plugin,
          p_page_item           => p_item,
-         p_value               => p_param.value,
-         p_is_readonly         => p_param.is_readonly,
-         p_is_printer_friendly => p_param.is_printer_friendly
+         p_value               => p_value,
+         p_is_readonly         => p_is_readonly,
+         p_is_printer_friendly => p_is_printer_friendly
       );
    END IF;
    
    IF l_loading_image_type = 'DEFAULT'
    THEN
-      l_loading_image_src := p_plugin.file_prefix ||'img/'|| l_loading_image_def || '.gif';
+      l_loading_image_src := p_plugin.file_prefix || l_loading_image_def || '.gif';
    ELSE
       l_loading_image_src := REPLACE(l_loading_image_cust, '#IMAGE_PREFIX#', apex_application.g_image_prefix);
       l_loading_image_src := REPLACE(l_loading_image_src, '#PLUGIN_PREFIX#', p_plugin.file_prefix);
@@ -82,7 +100,7 @@ BEGIN
    END IF;
    
    l_return_col_num := SUBSTR(l_dis_ret_cols, INSTR(l_dis_ret_cols, ',') + 1);
-   l_search_values(1) := p_param.value;
+   l_search_values(1) := p_value;
 
    l_sql_handler := apex_plugin_util.get_sql_handler (
       p_sql_statement  => p_item.lov_definition,
@@ -104,7 +122,7 @@ BEGIN
       l_display_value := l_display_values(1);
    ELSIF l_enterable = lc_enterable_unrestricted
    THEN
-      l_display_value := p_param.value;
+      l_display_value := p_value;
    END IF;
    
    l_js_headers_array := '[''';
@@ -118,13 +136,13 @@ BEGIN
    
    apex_plugin_util.free_sql_handler(l_sql_handler);
 
-   IF p_param.is_readonly OR p_param.is_printer_friendly
+   IF p_is_readonly OR p_is_printer_friendly
    THEN
       apex_plugin_util.print_hidden_if_readonly (
          p_item_name           => p_item.name,
-         p_value               => p_param.value,
-         p_is_readonly         => p_param.is_readonly,
-         p_is_printer_friendly => p_param.is_printer_friendly
+         p_value               => p_value,
+         p_is_readonly         => p_is_readonly,
+         p_is_printer_friendly => p_is_printer_friendly
       );
       
       apex_plugin_util.print_display_only (
@@ -138,7 +156,7 @@ BEGIN
       l_name := apex_plugin.get_input_name_for_page_item(FALSE);
       
       sys.htp.p(
-            '<input type="hidden" name="' || l_name || '" id="' || p_item.name || '_HIDDENVALUE" value="' || sys.htf.escape_sc(p_param.value) || '" />' || l_crlf
+            '<input type="hidden" name="' || l_name || '" id="' || p_item.name || '_HIDDENVALUE" value="' || sys.htf.escape_sc(p_value) || '" />' || l_crlf
          || '<fieldset id="' || p_item.name || '_fieldset" class="superlov-controls lov ' ||
             CASE l_enterable
                WHEN lc_not_enterable THEN 'super-lov-not-enterable'
@@ -147,6 +165,7 @@ BEGIN
             END
          || '">' || l_crlf
          || '   <div id="' || p_item.name || '_holder" class="lov">' || l_crlf
+-- ApEx 5 Adjustment
            || '               <input class="superlov-input popup_lov" type="text" ' || 
                                CASE
                                   WHEN l_enterable = lc_not_enterable
@@ -155,13 +174,58 @@ BEGIN
                             || ' value="' || sys.htf.escape_sc(l_display_value) || '" maxlength="' || p_item.element_max_length || '" size="'
                             || p_item.element_width || '" id="' || p_item.name || '" ' || p_item.element_attributes
                             || ' />' || l_crlf
+-- ApEx 5 Adjustment : moved this to on-load
+/*
+          || CASE 
+               WHEN l_enterable IN (lc_enterable_unrestricted, lc_enterable_restricted)
+               THEN '               <script>' || l_crlf ||
+                    '                  apex.jQuery("#' || p_item.name || '").bind("change", function(evnt) {' || l_crlf ||
+                    '                     if (!apex.jQuery(this).apex_super_lov("changePropagationAllowed")) {' || l_crlf ||
+                    '                        evnt.stopImmediatePropagation();' || l_crlf ||
+                    '                     }' || l_crlf ||
+                    '                  });' || l_crlf ||
+                    '               </script>' || l_crlf
+            END
+*/
+-- ApEx 5 Adjustment
          || '               <span class="superlov-control-buttons">' || l_crlf
+-- ApEx 5 Adjustment
+--         || '                    <span id="superlov-modal-open" class="superlov-modal-open"><i class="fa fa-search"></i></span>' || l_crlf
+--         || '                    <span id="superlov-modal-delete" class="superlov-modal-delete"><i class="fa fa-circle-minus"></i></span>' || l_crlf
          || '                  <button type="button" class="superlov-modal-delete" style="height: auto !important;">&nbsp;</button>' || l_crlf
          || '                  <button type="button" class="superlov-modal-open" style="height: auto !important;">&nbsp;</button>' || l_crlf
          || '               </span>' || l_crlf
          || '                  ' || l_crlf
          || '     </div>' || l_crlf
+-- ApEx 5 Adjustment
          || '</fieldset>' || l_crlf
+      );
+
+/*
+apex_css.add_file(
+         p_name      => 'font-awesome',
+         p_directory => 'http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/',
+         p_version   => NULL
+      );
+*/
+
+      apex_css.add_file(
+         p_name      => 'apex_super_lov',
+         p_directory => p_plugin.file_prefix,
+         p_version   => NULL
+      );
+
+      apex_javascript.add_library(
+         p_name      => 'jquery.ui.button',
+         p_directory => apex_application.g_image_prefix || 'libraries/jquery-ui/1.8/ui/',
+         p_version   => NULL
+      );
+
+      apex_javascript.add_library(
+         --p_name      => 'apex_super_lov.min',
+         p_name      => 'apex_super_lov',
+         p_directory => p_plugin.file_prefix,
+         p_version   => NULL
       );
 
       l_onload_code := 'apex.jQuery("input#' || p_item.name || '").apex_super_lov({' || l_crlf
@@ -200,11 +264,13 @@ BEGIN
 
    IF l_enterable = lc_not_enterable
    THEN
-      p_result.is_navigable := FALSE;
+      l_retval.is_navigable := FALSE;
    ELSE
-      p_result.is_navigable := TRUE;
+      l_retval.is_navigable := TRUE;
    END IF;
         
+   RETURN l_retval;
+
 EXCEPTION
 
    WHEN OTHERS
@@ -213,12 +279,12 @@ EXCEPTION
     
 END apex_super_lov_render;
 
-PROCEDURE apex_super_lov_ajax (
-    p_item   in            apex_plugin.t_item,
-    p_plugin in            apex_plugin.t_plugin,
-    p_param  in            apex_plugin.t_item_ajax_param,
-    p_result in out nocopy apex_plugin.t_item_ajax_result
+FUNCTION apex_super_lov_ajax (
+   p_item   IN APEX_PLUGIN.T_PAGE_ITEM,
+   p_plugin IN APEX_PLUGIN.T_PLUGIN
 )
+
+   RETURN APEX_PLUGIN.T_PAGE_ITEM_AJAX_RESULT
 
 IS
 
@@ -482,17 +548,22 @@ BEGIN
       
       sys.htp.p('}');
    END IF;
+
+   RETURN NULL;
+
 END apex_super_lov_ajax;
 
-PROCEDURE apex_super_lov_validation (
-    p_item   in            apex_plugin.t_item,
-    p_plugin in            apex_plugin.t_plugin,
-    p_param  in            apex_plugin.t_item_validation_param,
-    p_result in out nocopy apex_plugin.t_item_validation_result 
+FUNCTION apex_super_lov_validation (
+   p_item   IN APEX_PLUGIN.T_PAGE_ITEM,
+   p_plugin IN APEX_PLUGIN.T_PLUGIN,
+   p_value  IN VARCHAR2
 )
+
+   RETURN APEX_PLUGIN.T_PAGE_ITEM_VALIDATION_RESULT
 
 IS
 
+   l_retval                  APEX_PLUGIN.T_PAGE_ITEM_VALIDATION_RESULT;
    lc_not_enterable          CONSTANT VARCHAR2(30) := 'NOT_ENTERABLE';
    lc_enterable_unrestricted CONSTANT VARCHAR2(30) := 'ENTERABLE_UNRESTRICTED';
    l_return_value            VARCHAR2(32767);
@@ -504,7 +575,7 @@ IS
 BEGIN
 
 
-   IF p_param.value IS NOT NULL
+   IF p_value IS NOT NULL
       AND l_enterable != lc_enterable_unrestricted
       AND l_validate_value = 'Y' 
    THEN
@@ -517,14 +588,19 @@ BEGIN
          p_component_name    => p_item.name,
          p_display_column_no => l_return_col_num,
          p_search_column_no  => l_return_col_num,
-         p_search_string     => p_param.value,
+         p_search_string     => p_value,
          p_display_extra     => FALSE --Can't trust this value
       );
       
       IF l_return_value IS NULL
       THEN
-         p_result.message := '#LABEL# contains a value that was not in the list of values.';
+         l_retval.message := '#LABEL# contains a value that was not in the list of values.';
       END IF;
    END IF;
+   
+   RETURN l_retval;
 
 END apex_super_lov_validation;
+/*****************************************************************************/  
+END apex_super_lov_2_0;
+/
