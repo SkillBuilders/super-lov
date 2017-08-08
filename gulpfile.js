@@ -54,7 +54,7 @@
       }))
       .pipe(gulp.dest(path.join(config.paths.outputdir, 'css')))
       .pipe(cssmin())
-      .pipe(rename({suffix:'.min'}))      
+      .pipe(rename({suffix:'.min'}))
       .pipe(sourcemaps.write('./maps'))
       .pipe(gulp.dest(path.join(config.paths.outputdir, 'css')))
   });
@@ -65,7 +65,7 @@
   });
 
   // TODO -- figure out how to make zip run after everything is finished
-  gulp.task('zip',function (){
+  gulp.task('zip',['clean', 'plsql','less','images','scripts'],function (){
      return gulp.src([ path.join(config.paths.outputdir,'**/*'), '!' + path.join(config.paths.outputdir,'plsql')])
         .pipe(zip('upload.zip'))
         .pipe(gulp.dest('./'));
