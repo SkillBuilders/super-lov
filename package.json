@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "\u0016https://github.com/SkillBuilders/super-lov"
+    "url": "https://github.com/SkillBuilders/super-lov"
   },
   "keywords": [
     "APEX",
@@ -20,17 +20,17 @@
   "author": "SkillBuilders",
   "license": "MIT",
   "dependencies": {
+  },
+  "devDependencies": {
+    "gulp-cssmin": "^0.2.0",
+    "gulp-less": "^3.3.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.6.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-imagemin": "^3.0.3",
     "gulp-uglify": "^2.0.0",
     "gulp-zip": "^3.2.0"
-  },
-  "devDependencies": {
-    "gulp-cssmin": "^0.2.0",
-    "gulp-less": "^3.3.2",
-    "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^2.6.0"
   }
 }
