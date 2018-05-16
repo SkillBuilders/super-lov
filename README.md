@@ -83,37 +83,14 @@ Application settings are used to configure all instances of a plug-in within an 
 settings are accessed by editing the plug-in within the Shared Components. This plug-in has the
 following application settings:
 
-_**Search Type**_
-
-Use this setting to control how search strings are used to filter the LOV result set.
-
-_**Loading Image Type**_
-
-Use this setting to choose between a default or custom loading image. The loading image is
-displayed when the LOV is opened, before the result set appears. There are a number of default
-loading images that can be used (see Loading Image next) but you can use your own as well.
-
-_**Loading Image**_
-
-Use this setting to specify which loading image you would like to use. Based on the Loading Image
-Type selection, you will either choose from a number of default images or you will specify the
-path/name to a custom image.
-
-_**Effects Speed**_
-
-Use this setting to specify the speed at which the modal dialog should perform certain effects such as
-sizing, resizing, and fading. Selecting “instant” will essentially disable any effects.
-
-_**Use Clear Confirm**_
-
-Use this setting to enable or disable the Clear Confirm feature. Clear Confirm requires the user to
-click the clear button twice to clear the selected value. This is done to help prevent accidental
-clearings that would require the LOV to be reopened.
-
-_**When No Data Found Message**_
-
-Use this setting to specify what message should be displayed to users when the LOV query fails
-to retrieve any results.
+**Setting**                      | **Description**
+-------------------------------- | -------------------------------------------------------------------------------------
+_**Search Type**_                | Control how search strings are used to filter the LOV result set.
+_**Loading Image Type**_         | Choose between a default or custom loading image. The loading image is displayed when the LOV is opened, before the result set appears. There are a number of default loading images that can be used (see Loading Image next) but you can use your own as well. 
+_**Loading Image**_              | Specify which loading image you would like to use. Based on the Loading Image Type selection, you will either choose from a number of default images or you will specify the path/name to a custom image. 
+_**Effects Speed**_              | Specify the speed at which the modal dialog should perform certain effects such as sizing, resizing, and fading. Selecting “instant” will essentially disable any effects.
+_**Use Clear Confirm**_          | Enable or disable the Clear Confirm feature. Clear Confirm requires the user to click the clear button twice to clear the selected value. This is done to help prevent accidental clearings that would require the LOV to be reopened. 
+_**When No Data Found Message**_ | Specify what message should be displayed to users when the LOV query fails to retrieve any results.
 
 ### Component Settings
 
