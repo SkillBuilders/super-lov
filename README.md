@@ -1,10 +1,8 @@
 # **SkillBuilders Super LOV**
 ### An Item Plug-in for Oracle Application Express (APEX)
-### Update for APEX 5.0, June 2015
+
 
 # Overview
-
-## Intro
 
 The built-in Popup LOV item in APEX can be a powerful tool when the number of possible selections
 is too high for other item types that use LOVs, such as a select list. However, people often wish to
@@ -68,7 +66,7 @@ the “Plug-ins” option and then choose the plug-in on the next page.
 Here’s a sample query that could be used for the LOV. Notice how column aliases are used to
 generate formatted column headings.
 
-```
+``` sql
 SELECT empno AS "Emp No.",
   ename AS "Employee",
   job AS "Job",
@@ -190,7 +188,7 @@ Use this setting to specify how null values should be displayed in the result se
 The disableItem and enableItem methods can be used to programmatically disable or enable the
 item. Example(s):
 
-```
+``` js
   $('#P1_ITEM_NAME').apex_super_lov('enable');
   $('#P1_ITEM_NAME').apex_super_lov('disable');
 ```
@@ -198,7 +196,7 @@ item. Example(s):
 The hideItem and showItem methods can be used to programmatically hide or display the item and
 its label. Example(s):
 
-```
+``` js
   $('#P1_ITEM_NAME').apex_super_lov('hide');
   $('#P1_ITEM_NAME').apex_super_lov('show');
 ```
@@ -206,7 +204,7 @@ its label. Example(s):
 The hideRow and showRow methods can be used to programmatically hide or display the item, its
 label, as well as any other elements that exist in the same table row. Example(s):
 
-```
+``` js
   $('#P1_ITEM_NAME').apex_super_lov('hideRow');
   $('#P1_ITEM_NAME').apex_super_lov('showRow');
 ```
@@ -216,7 +214,7 @@ return values and set the item using the return values. getValuesByReturn will r
 with the results from the fetch. setValuesByReturn goes a step further using the return values to set
 the display and return values for the item. Example(s):
 
-```
+``` js
   $('#P1_ITEM_NAME').apex_super_lov('getValuesByReturn', '101');
   $('#P1_ITEM_NAME').apex_super_lov('setValuesByReturn', '999');
 ```
