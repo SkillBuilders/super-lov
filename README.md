@@ -288,7 +288,7 @@ enterable mode.
 ## Feature Requests
   
 If you would like to see additional functionality added to the plug-in, or if you have found a bug,
-please let us know by posting a request.
+please let us know by posting a request through the link https://github.com/SkillBuilders/super-lov/issues
  
 ## License
  
