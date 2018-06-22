@@ -85,12 +85,12 @@ following application settings:
 
 **Setting**                      | **Description**
 -------------------------------- | -------------------------------------------------------------------------------------
-_**Search Type**_                | Control how search strings are used to filter the LOV result set.
-_**Loading Image Type**_         | Choose between a default or custom loading image. The loading image is displayed when the LOV is opened, before the result set appears. There are a number of default loading images that can be used (see Loading Image next) but you can use your own as well. 
-_**Loading Image**_              | Specify which loading image you would like to use. Based on the Loading Image Type selection, you will either choose from a number of default images or you will specify the path/name to a custom image. 
-_**Effects Speed**_              | Specify the speed at which the modal dialog should perform certain effects such as sizing, resizing, and fading. Selecting “instant” will essentially disable any effects.
-_**Use Clear Confirm**_          | Enable or disable the Clear Confirm feature. Clear Confirm requires the user to click the clear button twice to clear the selected value. This is done to help prevent accidental clearings that would require the LOV to be reopened. 
-_**When No Data Found Message**_ | Specify what message should be displayed to users when the LOV query fails to retrieve any results.
+Search Type                      | Control how search strings are used to filter the LOV result set.
+Loading Image Type               | Choose between a default or custom loading image. The loading image is displayed when the LOV is opened, before the result set appears. There are a number of default loading images that can be used (see Loading Image next) but you can use your own as well. 
+Loading Image                    | Specify which loading image you would like to use. Based on the Loading Image Type selection, you will either choose from a number of default images or you will specify the path/name to a custom image. 
+Effects Speed                    | Specify the speed at which the modal dialog should perform certain effects such as sizing, resizing, and fading. Selecting “instant” will essentially disable any effects.
+Use Clear Confirm                | Enable or disable the Clear Confirm feature. Clear Confirm requires the user to click the clear button twice to clear the selected value. This is done to help prevent accidental clearings that would require the LOV to be reopened. 
+When No Data Found Message       | Specify what message should be displayed to users when the LOV query fails to retrieve any results.
 
 ### Component Settings
 
@@ -98,67 +98,18 @@ Component settings are used to configure an individual instance of a plug-in wit
 application. These settings are accessed by editing the component as you would a native APEX
 component. This plug-in has the following component settings:
 
-_**Use Value Validation**_
-
-Use this setting to enable or disable the Value Validation feature. Value Validation will re-check the
-submitted value against the LOV. If the value is not found then the validation will fail and the user
-will see a validation error message.
-
-_**Dialog Title**_
-
-Use this setting to explicitly set the title of the dialog. If no value is supplied then the item’s label will
-be used.
-
-_**Item Display & Return Columns**_
-
-Use this setting to specify which column should be used for the item’s display value and which column
-should be used for the item’s return value. The value should be a comma separated pair of numbers
-where the numbers refer to the column in the LOV query. The first number should be the display
-column and the second number should be the return column. The display column will be used as the
-default search column.
-
-_**Searchable Columns**_
-
-Use this setting to specify which columns should be displayed in the select list of columns that allows
-users to filter the LOV result set. The value should be a comma separated list of numbers where the
-numbers refer to columns in the LOV query. If no value is supplied then all columns will be searchable.
-If a value is supplied then only those columns will be searchable. The display column (defined via Item
-Display & Return Columns) will always be searchable and will be the default search column.
-
-_**Hidden Columns**_
-
-Use this setting to specify which columns should be hidden when the LOV is displayed. The value
-should be a comma separated list of numbers where the numbers refer to columns in the LOV query. If
-no value is supplied then all columns will be visible. The display column (defined via Item Display &
-Return Columns) will always be visible.
-
-_**Map from Columns**_
-
-Use this setting to specify which columns should be used to map values to other items (see Map To
-Items). The value should be a comma separated list of numbers where the numbers refer to columns
-in the LOV query. Both visible and hidden columns can be used when mapping to other items.
-
-_**Map to Items**_
-
-Use this setting to specify which items should be used when mapping values from columns (see
-Map From Columns). The value should be a comma separated list of item names. The order of the
-items in Map To Items should match the order of the columns in Map To Columns.
-
-_**Enterable**_
-
-Use this setting to make the item "enterable". If enterable, users will be able to type in the actual
-textbox. The display column (defined via Item Display & Return Columns) will be the default search
-column against which values entered will be validated. If one match is found then the display and
-return values will be set accordingly. If no match is found or multiple matches are found the modal
-dialog will open so that the user can make a selection.
-
-_**Max Rows Per Page**_
-
-Use this setting to specify the maximum number of records that should be displayed at one time.
-
-_**Show Null Values As**_
-
-Use this setting to specify how null values should be displayed in the result set.
+**Setting**                      | **Description**
+-------------------------------- | -------------------------------------------------------------------------------------
+Use Value Validation             | Use this setting to enable or disable the Value Validation feature. Value Validation will re-check the submitted value against the LOV. If the value is not found then the validation will fail and the user will see a validation error message.
+Dialog Title                     | Use this setting to explicitly set the title of the dialog. If no value is supplied then the item’s label will be used.
+Item Display & Return Columns    | Use this setting to specify which column should be used for the item’s display value and which column should be used for the item’s return value. The value should be a comma separated pair of numbers where the numbers refer to the column in the LOV query. The first number should be the display column and the second number should be the return column. The display column will be used as the default search column.
+Searchable Columns               | Use this setting to specify which columns should be displayed in the select list of columns that allows users to filter the LOV result set. The value should be a comma separated list of numbers where the numbers refer to columns in the LOV query. If no value is supplied then all columns will be searchable. If a value is supplied then only those columns will be searchable. The display column (defined via Item Display & Return Columns) will always be searchable and will be the default search column.
+Hidden Columns                   | Use this setting to specify which columns should be hidden when the LOV is displayed. The value should be a comma separated list of numbers where the numbers refer to columns in the LOV query. If no value is supplied then all columns will be visible. The display column (defined via Item Display & Return Columns) will always be visible.
+Map from Columns                 | Use this setting to specify which columns should be used to map values to other items (see Map To Items). The value should be a comma separated list of numbers where the numbers refer to columns in the LOV query. Both visible and hidden columns can be used when mapping to other items.
+Map to Items                     | Use this setting to specify which items should be used when mapping values from columns (see Map From Columns). The value should be a comma separated list of item names. The order of the items in Map To Items should match the order of the columns in Map To Columns.
+Enterable                        | Use this setting to make the item "enterable". If enterable, users will be able to type in the actual textbox. The display column (defined via Item Display & Return Columns) will be the default search column against which values entered will be validated. If one match is found then the display and return values will be set accordingly. If no match is found or multiple matches are found the modal dialog will open so that the user can make a selection.
+Max Rows Per Page                | Use this setting to specify the maximum number of records that should be displayed at one time.
+Show Null Values As              | Use this setting to specify how null values should be displayed in the result set.
 
 ## Methods
 
