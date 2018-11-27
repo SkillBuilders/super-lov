@@ -1,0 +1,59 @@
+@import "variables";
+
+.#{$prefix}{
+  &-controls {
+    background: transparent;
+    display: inline-block;
+    table td {
+      padding: 0px;
+    }
+    &--stretch{
+      flex-grow:1;
+    }
+    &-inner {
+      margin: 0;
+      background: none repeat scroll 0 0 transparent !important;
+      display:flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items:flex-start;
+      cursor: pointer;
+      min-height: 12px;
+      min-width: 12px;
+      white-space: nowrap;
+    } 
+    // button {
+    //   border: none;
+    //   cursor: pointer;
+    //   font-weight: normal;
+    //   padding: 0;
+    //   text-align: center;
+    //   outline: none;
+    // }
+
+    &-buttons{
+      order: 3;
+      margin-left: -.1rem;
+      padding: 0px;
+    }
+  }
+  &-input {
+    flex:1;
+    order:3;
+    outline: none;
+  }
+  &-loading {
+    margin-left: 5px;
+  }
+  &-modal-open{
+    margin-left: -.1rem !important;
+  }
+}
+
+@media only screen and (max-width: #{$medium}){
+  .#{$prefix}{
+    &-controls {
+      flex:1;
+    }
+  }
+}

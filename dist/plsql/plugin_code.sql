@@ -139,14 +139,14 @@ BEGIN
       
       sys.htp.p(
             '<input type="hidden" name="' || l_name || '" id="' || p_item.name || '_HIDDENVALUE" value="' || sys.htf.escape_sc(p_param.value) || '" />' || l_crlf
-         || '<fieldset id="' || p_item.name || '_fieldset" class="superlov-controls lov ' ||
+         || '<div id="' || p_item.name || '_fieldset" class="superlov-controls lov ' ||
             CASE l_enterable
                WHEN lc_not_enterable THEN 'super-lov-not-enterable'
                WHEN lc_enterable_unrestricted THEN 'super-lov-enterable-unrestricted'
                WHEN lc_enterable_restricted THEN 'super-lov-enterable-restricted'
             END
          || '">' || l_crlf
-         || '   <div id="' || p_item.name || '_holder" class="lov">' || l_crlf
+         || '   <div id="' || p_item.name || '_holder" class="superlov-controls-inner lov">' || l_crlf
            || '               <input class="superlov-input popup_lov" type="text" ' || 
                                CASE
                                   WHEN l_enterable = lc_not_enterable
@@ -155,13 +155,13 @@ BEGIN
                             || ' value="' || sys.htf.escape_sc(l_display_value) || '" maxlength="' || p_item.element_max_length || '" size="'
                             || p_item.element_width || '" id="' || p_item.name || '" ' || p_item.element_attributes
                             || ' />' || l_crlf
-         || '               <span class="superlov-control-buttons">' || l_crlf
-         || '                  <button type="button" class="superlov-modal-delete" style="height: auto !important;">&nbsp;</button>' || l_crlf
-         || '                  <button type="button" class="superlov-modal-open" style="height: auto !important;">&nbsp;</button>' || l_crlf
+         || '               <span class="superlov-controls-buttons">' || l_crlf
+         || '                  <button type="button" class="superlov-modal-delete" >&nbsp;</button>' || l_crlf
+         || '                  <button type="button" class="superlov-modal-open" >&nbsp;</button>' || l_crlf
          || '               </span>' || l_crlf
          || '                  ' || l_crlf
          || '     </div>' || l_crlf
-         || '</fieldset>' || l_crlf
+         || '</div>' || l_crlf
       );
 
       l_onload_code := 'apex.jQuery("input#' || p_item.name || '").apex_super_lov({' || l_crlf

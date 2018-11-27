@@ -1,0 +1,102 @@
+@import "variables";
+
+.#{$prefix}{
+  &-dialog {
+    margin: 0;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: hidden;
+
+    .ui-dialog-buttonpane {
+        margin-top: 0px;
+    }
+
+    .ui-dialog-titlebar-close {
+        background-color: transparent !important;
+    }
+  }
+
+  &-container {
+    margin: 10px;
+    padding: 0px !important;
+    td {
+      vertical-align: middle;
+    }
+  }
+  &-button-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin: 0px auto;
+    padding: 5px !important;
+
+    td {
+      padding: 3px;
+    }
+  }
+
+  &-search-container {
+    flex: 1;
+    white-space: nowrap;
+    padding: 0px !important;
+  }
+
+  #superlov-filter {
+    outline: none;
+  }
+
+  &-search-icon {
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer;
+  }
+
+  &-pagination-container {
+    float: right;
+    white-space: nowrap;
+    padding: 0px !important;
+    button {
+        outline: none !important;
+        span {
+          padding: 0;
+        }
+    }   
+  }
+  &-pagination-display {
+    white-space: nowrap;
+  }
+
+  &-table-wrapper {
+    margin-top: 10px;
+    overflow: auto;
+    padding: 0px !important;
+    min-height: 60px;
+  }
+
+  #superlov-fetch-results{
+    width: auto;
+  }
+
+  &-table {
+    empty-cells: show;
+
+    * {
+        user-select: none;
+    }
+
+    thead *{
+        cursor: default;
+    }
+
+    thead tr th {
+        padding: 4px 8px;
+        white-space: nowrap;
+    }
+    tbody *{
+        cursor: pointer;
+    }
+    tbody tr td {
+        padding: 4px 8px;
+    }   
+  }
+}
